@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Weather Forecast</title>
+  <style>
+    /* Add your CSS styles here */
+    body {
+      font-family: Arial, sans-serif;
+      background-color: black;
+    }
+    h1
+    {
+      text-align: center;
+      color:white;
+      font-size: 40px;
+    } p {
+      text-align: center;
+      color:white;
+    }
+    h5{
+      color:white;
+      font-family:'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+     margin-bottom: auto;
+     padding-bottom: 3px;;
+    }
+    
+    .container {
+      justify-content: space-around;
+      margin: 5vh 5vw;
+      background-color: #eee;
+      background-position: center;
+      background-size:auto;
+  
+      animation: image 4s infinite alternate;
+
+      display:flex;
+      justify-content: center;
+      margin-top: 40px;
+      margin-left: 40px;
+      background:url("https://img.freepik.com/premium-vector/natural-landscape-background-video-conference_538866-32.jpg");
+     
+    }
+    
+    @keyframes image {
+  0% {
+    background-image: url('https://images.unsplash.com/photo-1506744038136-46273834b3fb?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8Mnx8bGFuZHNjYXBlfGVufDB8fDB8fHww&auto=format&fit=crop&w=600&q=60');
+  }
+  10%{
+    background-image: url('https://images.unsplash.com/photo-1494500764479-0c8f2919a3d8?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8M3x8bGFuZHNjYXBlfGVufDB8fDB8fHww&auto=format&fit=crop&w=600&q=60');
+  }
+  20%{
+    background-image: url('https://images.unsplash.com/photo-1511884642898-4c92249e20b6?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8Nnx8bGFuZHNjYXBlfGVufDB8fDB8fHww&auto=format&fit=crop&w=600&q=60');
+  }
+  30%{
+    background-image: url('https://images.unsplash.com/photo-1470770841072-f978cf4d019e?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MTB8fGxhbmRzY2FwZXxlbnwwfHwwfHx8MA%3D%3D&auto=format&fit=crop&w=600&q=60');
+  }
+  40%{
+    background-image: url('https://images.unsplash.com/photo-1532274402911-5a369e4c4bb5?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MTF8fGxhbmRzY2FwZXxlbnwwfHwwfHx8MA%3D%3D&auto=format&fit=crop&w=600&q=60');
+  };
+  50%{
+    background-image: url('https://images.unsplash.com/photo-1511576661531-b34d7da5d0bb?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MTR8fGxhbmRzY2FwZXxlbnwwfHwwfHx8MA%3D%3D&auto=format&fit=crop&w=600&q=60');
+  }
+  60%{
+    background-image: url('https://images.unsplash.com/photo-1413752362258-7af2a667b590?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MjZ8fGxhbmRzY2FwZXxlbnwwfHwwfHx8MA%3D%3D&auto=format&fit=crop&w=600&q=60');
+  }
+  70%{
+    background-image: url('https://images.unsplash.com/photo-1433477155337-9aea4e790195?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MzJ8fGxhbmRzY2FwZXxlbnwwfHwwfHx8MA%3D%3D&auto=format&fit=crop&w=600&q=60');
+  }
+  80%{
+    background-image: url('https://images.unsplash.com/photo-1682685797365-41f45b562c0a?ixlib=rb-4.0.3&ixid=M3wxMjA3fDF8MHxzZWFyY2h8NDN8fGxhbmRzY2FwZXxlbnwwfHwwfHx8MA%3D%3D&auto=format&fit=crop&w=600&q=60');
+  }
+  90%{
+    background-image: url('https://images.unsplash.com/photo-1559666126-84f389727b9a?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8NDh8fGxhbmRzY2FwZXxlbnwwfHwwfHx8MA%3D%3D&auto=format&fit=crop&w=600&q=60');
+  }
+  100% {
+    background-image: url('https://images.unsplash.com/photo-1547471080-7cc2caa01a7e?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8NzR8fGxhbmRzY2FwZXxlbnwwfHwwfHx8MA%3D%3D&auto=format&fit=crop&w=600&q=60');
+  }
+}
+    .forecast-card {
+      border: 2px solid #060606;
+      border-radius: 4px;
+      padding: 20px;
+      margin: 20px;
+      text-align: center;
+      width: 300px;
+    }
+
+
+    button {
+ font-size: 17px;
+ padding: 0.5em 2em;
+ border: transparent;
+ box-shadow: 2px 2px 4px rgba(0,0,0,0.4);
+ background: rgb(0, 0, 0);
+ color: white;
+ border-radius: 4px;
+}
+
+button:hover {
+ background: rgb(2,0,36);
+ background: linear-gradient(90deg, rgb(10, 12, 14) 0%, rgb(11, 74, 87) 100%);
+}
+
+button:active {
+ transform: translate(0em, 0.2em);
+}
+
+
+  </style>
+</head>
+<body>
+  <h1>𝐖𝐞𝐚𝐭𝐡𝐞𝐫 𝐅𝐨𝐫𝐞𝐜𝐚𝐬𝐭 𝐮𝐬𝐢𝐧𝐠 𝐎𝐍𝐄𝐂𝐀𝐋𝐋 𝐀𝐏𝐈</h1>
+  
+  <div class="container">
+    <div class="forecast-card">
+      <h1>𝐇𝐨𝐮𝐫𝐥𝐲 <br> 𝐏𝐫𝐞𝐝𝐢𝐜𝐭𝐢𝐨𝐧</h1>
+      <br>
+      <br>
+      <a href="hourlyprediction.html">
+        <button class="hr">
+            Predict
+        </button>
+    </a>
+      <p id="hourly"></p>
+    </div>
+    <div class="forecast-card">
+      <h1>𝐃𝐚𝐢𝐥𝐲 𝐚𝐧𝐝 𝐖𝐞𝐞𝐤𝐥𝐲 <br> 𝐏𝐫𝐞𝐝𝐢𝐜𝐭𝐢𝐨𝐧𝐬</h1>
+      <a href="dailyweekly.html">
+        <button class="dw">
+            Predict
+        </button>
+    </a>
+      <p id="dailyweekly"></p>
+    </div>
+  </div>
+  
+  <script>
+    // Add your JavaScript code here
+    // Function to get weather forecast based on GPS location and user input
+    function getWeatherForecast(latitude, longitude) {
+      // Make API calls or fetch data here to get weather forecast from multiple sources
+    
+      var hourlyData="Hourly feature of OneCallAPI";
+      var dailyweeklyData="Daily and weekly feature of OneCallAPI";
+ 
+      
+      document.getElementById("hourly").innerText = hourlyData;
+      document.getElementById("dailyweekly").innerText = dailyweeklyData;
+    
+    }
+    
+    // Get current GPS location
+    navigator.geolocation.getCurrentPosition(function(position) {
+      var latitude = position.coords.latitude;
+      var longitude = position.coords.longitude;
+      
+      // Call the function to get weather forecast
+      getWeatherForecast(latitude, longitude);
+    }, function(error) {
+      console.log("Error getting GPS location: " + error.message);
+    });
+  </script>
+</body>
+<footer>
+  <h5>Made by Khushika Reddy &#169 Copyright reserved.</h5>
+</footer>
+</html>

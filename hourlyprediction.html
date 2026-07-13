@@ -1,0 +1,231 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background-color:black;
+      color: white;
+    }
+css
+Copy code
+.text-mask{
+  font-size: 60px;
+  padding-bottom: 10px;
+  padding-top: 10px;
+  font-weight: bolder;
+  color:black;
+  background:url("https://thumbs.gfycat.com/DeadlyEmotionalArcherfish-max-1mb.gif");
+}
+
+h2 {
+  text-align: center;
+  margin-top: 20px;
+  color:white;
+  font-size: 40px;
+}
+
+.weather-card {
+  width: 200px;
+  background:url("https://www.shutterstock.com/shutterstock/videos/1075744646/thumb/1.jpg?ip=x480");
+  border-radius: 5px;
+  padding: 10px;
+  margin: 10px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  display: inline-block;
+  color: black;
+}
+
+.weather-card img {
+  width: 50px;
+  margin: 0 auto;
+}
+
+.weather-card .time {
+  text-align: center;
+  font-weight: bold;
+  margin-bottom: 5px;
+}
+
+.weather-card .temperature {
+  text-align: center;
+}
+
+.weather-card .conditions {
+  text-align: center;
+  margin-top: 5px;
+}
+
+.location-form{
+  font-size:40px;
+  font-weight: 300px;
+}
+
+#pic{
+  margin-left:950px;
+  height:350px;
+  width:300px;
+}
+
+button {
+  position: relative;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-radius: 10px;
+  background: #183153;
+  font-family: "Montserrat", sans-serif;
+  box-shadow: 0px 6px 24px 0px rgba(0, 0, 0, 0.2);
+  overflow: hidden;
+  border: none;
+}
+
+button:after {
+  content: " ";
+  width: 0%;
+  height: 100%;
+  background: #FFD401;
+  position: absolute;
+  transition: all 0.4s ease-in-out;
+  right: 0;
+}
+
+button:hover::after {
+  right: auto;
+  left: 0;
+  width: 100%;
+}
+
+button span {
+  text-align: center;
+  text-decoration: none;
+  width: 80%;
+  padding: 18px 25px;
+  color: #fff;
+  font-size: 1.125em;
+  font-weight: 700;
+  letter-spacing: 0.3em;
+  z-index: 20;
+  transition: all 0.3s ease-in-out;
+}
+
+button:hover span {
+  color: #183153;
+  animation: scaleUp 0.3s ease-in-out;
+}
+
+@keyframes scaleUp {
+  0% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(0.95);
+  }
+  100% {
+    transform: scale(1);
+  }
+}
+  </style>
+</head>
+<body>
+  <center>
+    <div class="text-mask">
+      <span class="masked-text">𝑯𝑶𝑼𝑹𝑳𝒀 𝑾𝑬𝑨𝑻𝑯𝑬𝑹 𝑭𝑶𝑹𝑬𝑪𝑨𝑺𝑻</span>
+    </div>
+<div id="weather-container"></div>
+<form id="location-form">
+  <br>
+  <label for="location-input">ENTER LOCATION :</label>
+  <input type="text" id="location-input" required>
+  <br><br>
+  <button type="submit"><span>GET FORECAST</span></button>
+</form>
+<img id="pic" src="https://i.pinimg.com/originals/ce/1e/ed/ce1eed4ba599899cb7cb23fdee014631.gif" alt="">
+  </center>
+  <script>
+    // API endpoint and parameters
+    var weatherEndpoint = "https://api.openweathermap.org/data/2.5/forecast";
+    var reverseGeocodingEndpoint = "https://api.openweathermap.org/geo/1.0/reverse";
+    var apiKey = "2ed3098b4f46af098a0090bb12e337f2";
+
+    // Function to fetch weather data
+    function fetchWeather(location) {
+      var xhr = new XMLHttpRequest();
+      xhr.onreadystatechange = function() {
+        if (xhr.readyState === 4 && xhr.status === 200) {
+          var data = JSON.parse(xhr.responseText);
+
+          // Extract hourly forecast
+          var hourlyForecast = data.list;
+
+          // Generate weather cards
+          var weatherCards = "";
+          for (var i = 0; i < hourlyForecast.length; i++) {
+            var forecast = hourlyForecast[i];
+            var timestamp = new Date(forecast.dt * 1000).toLocaleTimeString();
+            var temperature = forecast.main.temp;
+            var conditions = forecast.weather[0].description;
+            var weatherIcon = "http://openweathermap.org/img/w/" + forecast.weather[0].icon + ".png";
+
+            weatherCards += '<div class="weather-card">' +
+              '<div class="time">' + timestamp + '</div>' +
+              '<img src="' + weatherIcon + '" alt="Weather Icon">' +
+              '<div class="temperature">' + temperature + '°F</div>' +
+              '<div class="conditions">' + conditions + '</div>' +
+              '</div>';
+          }
+
+          // Update weather container with generated weather cards
+          document.getElementById("weather-container").innerHTML = weatherCards;
+        }
+      };
+
+      xhr.open("GET", weatherEndpoint + "?appid=" + apiKey + "&q=" + location + "&units=imperial");
+      xhr.send();
+    }
+
+    // Handle form submission
+    document.getElementById("location-form").addEventListener("submit", function(event) {
+      event.preventDefault();
+      var locationInput = document.getElementById("location-input");
+      var location = locationInput.value;
+      fetchWeather(location);
+      locationInput.value = "";
+    });
+
+    // GPS location access
+    function getLocation() {
+      if (navigator.geolocation) {
+        navigator.geolocation.getCurrentPosition(success, error, { enableHighAccuracy: true });
+      } else {
+        console.log("Geolocation is not supported by this browser.");
+      }
+    }
+  
+    function success(position) {
+      var latitude = position.coords.latitude;
+      var longitude = position.coords.longitude;
+  
+      // Fetch the location address using Reverse Geocoding
+      fetch(reverseGeocodingEndpoint + "?lat=" + latitude + "&lon=" + longitude + "&limit=1&appid=" + apiKey)
+        .then(response => response.json())
+        .then(data => {
+          if (data.length > 0) {
+            var city = data[0].name;
+            fetchWeather(city);
+          }
+        })
+        .catch(error => {
+          console.log("Error fetching location address:", error);
+        });
+    }
+  
+    function error(err) {
+      console.warn(`ERROR(${err.code}): ${err.message}`);
+    }
+  
+    // Call the getLocation function to access GPS location
+    getLocation();
+  </script>
+</body>
+</html>
